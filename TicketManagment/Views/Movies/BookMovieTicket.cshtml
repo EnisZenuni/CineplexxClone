@@ -1,0 +1,75 @@
+﻿
+@model Domain.Domain.Models.Movie
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<link href="~/lib/datatables/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+
+<h1 class="pb-4 mb-2">@Model.MovieName</h1>
+<div class="container"> 
+    <div class="row">
+        <div class="col-8 embed-responsive embed-responsive-16by9 px-5">
+            <iframe class="embed-responsive-item" src="@Model.MovieTrailerUrl" width="560"  height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="row py-5">
+        
+      
+            <img class="w-25" src="@Model.movieImageUrl">
+       
+        <div class="col-md-4">
+            <p>@Model.MovieDescription</p>
+            <p><strong>Genre: </strong>@Model.MovieGenre</p>
+            <p><strong>Rating:</strong> @Model.Rating</p>
+        </div>
+    </div>
+</div>
+
+
+<table class="table py-2" id="TicketsTable">
+    <thead>
+        <tr>
+            <th>
+                Time: 
+            </th>
+            <th>
+                Price:
+            </th>
+             <th>
+                
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var ticket in @Model.Tickets) {
+        <tr>
+            <td>
+                <strong>@Html.DisplayFor(modelItem => ticket.dateTime.DayOfWeek) </strong> <br>
+                <p>@ticket.dateTime.ToShortDateString()</p>
+                @Html.DisplayFor(modelItem => ticket.dateTime.Hour)<span>:</span>@Html.DisplayFor(modelItem => ticket.dateTime.Minute)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => ticket.TicketPrice) <span class="text-secondary">Ден.</span>
+            </td>
+            <td>
+                    <a class="text-decoration-none text-white btn btn-success" href="/Tickets/AddToCart?ticketId=@ticket.Id">Book</a>
+            </td>
+           
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+
+@section Scripts
+{
+    <script src="~/lib/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/js/TicketManagment.js"></script>
+}
+
+

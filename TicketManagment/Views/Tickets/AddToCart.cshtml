@@ -1,0 +1,34 @@
+﻿@using Domain.DTO
+@model AddToShoppingCartDTO
+@{
+}
+
+@{
+    Random rnd = new Random();
+    int rndm = new Random().Next(1, 11);
+    int[] row = { 1,2,3,4,5,6,7,8,9,10};  
+}
+
+<h3>Purchase Ticket:</h3> <br /> <br />
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddToShoppingCart">
+                <input  type="hidden" asp-for="TicketId" />
+                <div class="form-group">
+
+                    <p>Time: <strong>@Model.SelectedTicket.dateTime</strong></h4>
+                    <p>Price: <strong>@Model.SelectedTicket.TicketPrice</strong></p>
+                </div>
+                 <div class="form-group">
+                    <input type="number" class="form-control" asp-for="Quantity" />
+                </div>
+                <p>Row: @row[rndm]</p>
+
+                <div class="form-group">
+                    <input type="submit" value="Add to Cart" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
